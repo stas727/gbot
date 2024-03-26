@@ -11,6 +11,6 @@ There are several commands(like text message in bot) to get additional informati
 - `version`- shows bot version
 ## How it works:
 
-[Telegram link](https://t.me/stas727_gbot) - you can try demo bot 
+[Telegram link](https://t.me/stas727_g_bot) - you can try demo bot 
 
 
