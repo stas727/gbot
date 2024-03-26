@@ -55,7 +55,7 @@ to quickly create a Cobra application.`,
 		//conversation
 		e := services.BotService.Handle(ctx, func(message string) string {
 			switch message {
-			case "hello", "hi", "hey", "привіт":
+			case "/start", "hello", "Hello", "hi", "hey", "Hi", "Hey", "привіт", "Привіт":
 				return MessageHi
 			case "version":
 				return fmt.Sprintf(MessageVersion, appVersion)
