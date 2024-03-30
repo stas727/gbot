@@ -1,9 +1,11 @@
-FROM golang:1.19 as builder
+FROM quay.io/projectquay/golang:1.20 as builder
 
+ARG TARGET_OS=linux
+RUN echo $TARGET_OS
 WORKDIR /go/src/app
 COPY . .
 RUN make goget
-RUN make build
+RUN make $TARGET_OS
 
 FROM scratch
 WORKDIR /
