@@ -1,6 +1,7 @@
 APP=gbot
 REGISTRY=gcr.io/gbot-418317
-VERSION=$(shell git describe --tags && git tag v1.0.0)
+VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+
 LINUX_TARGETOS=linux
 LINUX_TARGETARCH=arm64
 ARM_TARGETOS=android
