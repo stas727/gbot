@@ -5,11 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
 
-var appVersion = "Version"
+var appVersion = os.Getenv("VERSION")
 
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{

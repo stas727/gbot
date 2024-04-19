@@ -3,7 +3,7 @@ REGISTRY=gcr.io/gbot-418317
 VERSION=$(shell echo 'v1.0.0')-$(shell git rev-parse --short HEAD)
 
 LINUX_TARGETOS=linux
-LINUX_TARGETARCH=arm64
+LINUX_TARGETARCH=amd64
 ARM_TARGETOS=android
 ARM_TARGETARCH=arm64
 MACOS_TARGETOS=darwin
@@ -25,7 +25,7 @@ goget:
 	go get
 
 linux: format
-	CGO_ENABLED=0 GOOS=${LINUX_TARGETOS} GOARCH=${LINUX_TARGETARCH} go build -v -o gbot -ldflags "-X="github.com/stas727/gbot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=${LINUX_TARGETOS} GOARCH=${LINUX_TARGETARCH} GOENV=.env go build -v -o gbot -ldflags "-X="github.com/stas727/gbot/cmd.appVersion=${VERSION}
 
 arm: format
 	CGO_ENABLED=0 GOOS=${ARM_TARGETOS} GOARCH=${ARM_TARGETARCH} go build -v -o gbot -ldflags "-X="github.com/stas727/gbot/cmd.appVersion=${VERSION}
