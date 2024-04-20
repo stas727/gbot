@@ -7,10 +7,10 @@ image:
   repository: stas727
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "-"
+  tag: "gbot.v7-2d795bb"
   arch: amd64
-  os: ""
-  registry: ""
+  os: "linux"
+  registry: "ghcr.io"
 secret:
   secretName: gbot
   tokenKey: token
