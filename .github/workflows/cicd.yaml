@@ -37,7 +37,7 @@ jobs:
         env:
           APP: "gbot"
           REGISTRY: REGISTRY
-        run: make image push REGISTRY=REGISTRY  APP=APP
+        run: make image push REGISTRY=REGISTRY/${{ github.repository_owner }}  APP=APP
   cd:
     name: CD
     needs: ci
