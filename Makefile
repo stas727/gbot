@@ -1,6 +1,8 @@
 APP=gbot
 REGISTRY=stas727
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+TARGETOS=linux
+TARGETARCH=amd64
 LINUX_TARGETOS=linux
 LINUX_TARGETARCH=amd64
 ARM_TARGETOS=android
@@ -36,10 +38,10 @@ windows: format
 	CGO_ENABLED=0 GOOS=${WINDOWS_TARGETOS} GOARCH=${WINDOWS_TARGETARCH} go build -v -o gbot -ldflags "-X="github.com/stas727/gbot/cmd.appVersion=${VERSION}
 
 image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 clean:
-	rm -rf gbot && docker image rm ${REGISTRY}/${APP}:${VERSION}
+	rm -rf gbot && docker image rm ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
