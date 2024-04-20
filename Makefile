@@ -1,7 +1,6 @@
 APP=gbot
 REGISTRY=stas727
-VERSION=$(shell echo 'v1.0.7')-$(shell git rev-parse --short HEAD)
-
+VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 LINUX_TARGETOS=linux
 LINUX_TARGETARCH=amd64
 ARM_TARGETOS=android
