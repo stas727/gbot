@@ -9,6 +9,7 @@ env:
   TARGETARCH: amd64
   TARGETOS: linux
   REGISTRY: ghcr.io
+  APP: "gbot"
 
 jobs:
   ci:
@@ -36,7 +37,7 @@ jobs:
         env:
           APP: "gbot"
           REGISTRY: REGISTRY
-        run: make image push
+        run: make image push REGISTRY=REGISTRY  APP=APP
   cd:
     name: CD
     needs: ci
