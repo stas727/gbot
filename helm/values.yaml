@@ -9,6 +9,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "-"
   arch: amd64
+  os: ""
+  registry: ""
 secret:
   secretName: gbot
   tokenKey: token
