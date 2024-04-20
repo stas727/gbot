@@ -1,4 +1,4 @@
-name : GBOT-CICD
+name: GBOT-CICD
 
 on: push
 
@@ -19,9 +19,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Make env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          AI_TOKEN: ${{ secrets.AI_TOKEN }}
+          TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
       - name: Build&Push
         env:
           APP: "gbot"
           REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
-        run: make image push
+        run:
+          - cp /go/src/app/.env .
+          - make image push
 
