@@ -10,6 +10,8 @@ env:
   TARGETOS: linux
   REGISTRY: ghcr.io
   APP: "gbot"
+  AI_TOKEN: ${{ secrets.AI_TOKEN }}
+  TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
 
 jobs:
   ci:
@@ -31,9 +33,6 @@ jobs:
           file_name: .env
           fail_on_empty: false
           sort_keys: false
-        env:
-          AI_TOKEN: ${{ secrets.AI_TOKEN }}
-          TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
       - name: Build
         run: cat .env && make image REGISTRY=$REGISTRY/${{ github.repository_owner }} TARGETOS=$TARGETOS TARGETARCH=$TARGETARCH
 
