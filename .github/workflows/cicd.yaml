@@ -31,7 +31,5 @@ jobs:
         env:
           APP: "gbot"
           REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
-        run:
-          - cp /go/src/app/.env .
-          - make image push
+        run: make image push
 
