@@ -28,11 +28,12 @@ jobs:
       - name: Make env
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          AI_TOKEN: ${{ secrets.AI_TOKEN }}
-          TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
           file_name: .env
           fail_on_empty: false
           sort_keys: false
+        env:
+          AI_TOKEN: ${{ secrets.AI_TOKEN }}
+          TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
       - name: Build
         run: cat .env && make image REGISTRY=$REGISTRY/${{ github.repository_owner }} TARGETOS=$TARGETOS TARGETARCH=$TARGETARCH
 
