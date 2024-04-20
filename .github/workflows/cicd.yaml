@@ -23,5 +23,5 @@ jobs:
         env:
           APP: "gbot"
           REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
-          run: make image push
+        run: make image push
 
