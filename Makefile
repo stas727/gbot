@@ -1,6 +1,6 @@
 APP=gbot
-REGISTRY=gcr.io/gbot-418317
-VERSION=$(shell echo 'v1.0.0')-$(shell git rev-parse --short HEAD)
+REGISTRY=stas727
+VERSION=$(shell echo 'v1.0.7')-$(shell git rev-parse --short HEAD)
 
 LINUX_TARGETOS=linux
 LINUX_TARGETARCH=amd64
