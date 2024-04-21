@@ -34,7 +34,7 @@ jobs:
           fail_on_empty: false
           sort_keys: false
       - name: Build
-        run: cat .env && make image REGISTRY=$REGISTRY/${{ github.repository_owner }} TARGETOS=$TARGETOS TARGETARCH=$TARGETARCH
+        run: cat .env && make image REGISTRY=$REGISTRY/${{ github.repository_owner }}
 
       - name: Push
         run: make push REGISTRY=$REGISTRY/${{ github.repository_owner }} TARGETOS=$TARGETOS TARGETARCH=$TARGETARCH
