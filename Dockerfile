@@ -1,12 +1,9 @@
 FROM quay.io/projectquay/golang:1.20 as builder
 
-ARG TARGET_OS=linux
-
-RUN echo $TARGET_OS
 WORKDIR /go/src/app
 COPY . .
 RUN make goget
-RUN make $TARGET_OS
+RUN make build
 
 FROM scratch
 WORKDIR /
