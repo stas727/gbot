@@ -1,6 +1,17 @@
 name: GBOT-CICD
 
-on: push
+on:
+  push:
+    branches:
+      - 'develop'
+
+env:
+  TARGETARCH: amd64
+  TARGETOS: linux
+  REGISTRY: ghcr.io
+  APP: "gbot"
+  AI_TOKEN: ${{ secrets.AI_TOKEN }}
+  TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
 
 jobs:
   ci:
@@ -15,23 +26,18 @@ jobs:
       - name: Run test
         run: make test
       - name: Docker Hub Login
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: echo "${{ secrets.REGISTRY_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Make env
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          AI_TOKEN: ${{ secrets.AI_TOKEN }}
-          TELE_TOKEN: ${{ secrets.TELE_TOKEN }}
           file_name: .env
           fail_on_empty: false
           sort_keys: false
-      - name: Build&Push
-        env:
-          APP: "gbot"
-          REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
-        run: make image push
+      - name: Build
+        run: cat .env && make image REGISTRY=$REGISTRY/${{ github.repository_owner }}
+
+      - name: Push
+        run: make push REGISTRY=$REGISTRY/${{ github.repository_owner }}
   cd:
     name: CD
     needs: ci
@@ -43,12 +49,11 @@ jobs:
         with:
           fetch-depth: 0
       - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
       - uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml
+          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH) | .image.os=strenv(TARGETOS) | .image.registry=strenv(REGISTRY)' helm/values.yaml
       - run: |
-                git config user.name github-actions
-                git config user.email github-actions@github.com
-                git commit -am "update version $VERSION"
-                git push
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -am "update version $VERSION"
+          git push
