@@ -11,7 +11,7 @@ image:
   arch: amd64
   os: "linux"
   registry: "ghcr.io"
-  tag: "v1.0.0-b00fd17"
+  tag: "v1.0.0-d30ccb2"
 secret:
   secretName: gbot
   tokenKey: token
