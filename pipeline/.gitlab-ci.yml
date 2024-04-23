@@ -1,0 +1,58 @@
+variables:
+  TARGETARCH: amd64
+  TARGETOS: linux
+  REGISTRY: registry.gitlab.com
+  APP: "gbot"
+  CI_TOKEN: $CI_JOB_TOKEN
+  TELE_TOKEN: $TELE_TOKEN
+  REGISTRY_TOKEN: $REGISTRY_TOKEN
+  REGISTRY_USERNAME: $REGISTRY_USERNAME
+  FILE_PATH: helm/values.yaml
+
+stages:
+  - test
+  - build-push
+  - update-image-tag
+
+test:
+  stage: test
+  image: ubuntu:latest
+  services:
+    - docker:dind
+  script:
+    - make test
+
+build:
+  stage: build
+  image: ubuntu:latest
+  services:
+    - docker:dind
+  script:
+    - echo AI_TOKEN=$AI_TOKEN >> .env
+    - echo TELE_TOKEN=$TELE_TOKEN >> .env
+    - echo $REGISTRY_TOKEN | docker login ghcr.io -u $REGISTRY_USERNAME --password-stdin
+    - cat .env && make image REGISTRY=$REGISTRY/$REGISTRY_USERNAME
+    - make push REGISTRY=$REGISTRY/$REGISTRY_USERNAME
+
+update-image-tag:
+  image: mikefarah/yq:4
+  before_script:
+    # Define remote origin
+    - git remote set-url origin "https://$REPO_TOKEN_NAME:$REPO_ACCESS_TOKEN@gitlab.com/myproject/myapp.git"
+    # Configure git user
+    - git config --global user.email "ci@gitlab.com"
+    - git config --global user.name "GitLab CI"
+    # Reset to remote main branch
+    - git fetch
+    - git switch main
+    - git reset --hard origin/main
+    - echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> build.env
+  artifacts:
+    reports:
+      dotenv: build.env
+  script:
+    - yq -i '.image.tag=strenv($VERSION) | .image.arch=strenv($TARGETARCH) | .image.os=strenv($TARGETOS) | .image.registry=strenv($REGISTRY)' $FILE_PATH
+    - git add $FILE_PATH
+    - git commit -m "CI Deploy to $VERSION"
+    - git push -o ci.skip origin HEAD:main
+
