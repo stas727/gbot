@@ -4,10 +4,8 @@
 
 replicaCount: 1
 image:
-  repository: stas727
+  repository: stas727/gbot
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.0-e5d61ee"
   arch: amd64
   os: "linux"
   registry: "ghcr.io"
@@ -16,3 +14,5 @@ secret:
   secretName: gbot
   tokenKey: token
   tokenName: TELE_TOKEN
+imagePullSecrets:
+  - name: stas727

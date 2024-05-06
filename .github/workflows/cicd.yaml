@@ -51,7 +51,7 @@ jobs:
       - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH) | .image.os=strenv(TARGETOS) | .image.registry=strenv(REGISTRY)' helm/values.yaml
+          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH) | .image.os=strenv(TARGETOS) | .image.registry=strenv(REGISTRY/APP)' helm/values.yaml
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
