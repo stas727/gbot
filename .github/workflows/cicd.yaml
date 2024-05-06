@@ -3,7 +3,7 @@ name: GBOT-CICD
 on:
   push:
     branches:
-      - 'develop'
+      - 'main'
 
 env:
   TARGETARCH: amd64
