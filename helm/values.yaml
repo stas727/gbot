@@ -16,3 +16,5 @@ secret:
   tokenName: TELE_TOKEN
 imagePullSecrets:
   - name: stas727
+imageSecret:
+  - name: dockerconfigjson-github-com
