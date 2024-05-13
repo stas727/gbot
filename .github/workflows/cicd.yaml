@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)-$($TARGETOS)-$($TARGETARCH)" >> $GITHUB_ENV
+      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)-$TARGETOS-$TARGETARCH" >> $GITHUB_ENV
       - uses: mikefarah/yq@master
         with:
           cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH) | .image.os=strenv(TARGETOS) | .image.registry=strenv(REGISTRY)' helm/values.yaml
