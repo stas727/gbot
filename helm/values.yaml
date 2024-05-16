@@ -9,6 +9,6 @@ image:
   arch: amd64
   os: "linux"
   registry: "ghcr.io"
-  tag: "v1.0.0-86e1f60-linux-amd64"
+  tag: "v1.0.0-4397f03-linux-amd64"
 imagePullSecrets:
   - name: stas727
