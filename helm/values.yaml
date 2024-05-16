@@ -8,8 +8,8 @@ image:
   pullPolicy: IfNotPresent
   arch: amd64
   os: "linux"
-  registry: ""
-  tag: "v1.0.0-de42eee"
+  registry: "ghcr.io"
+  tag: "v1.0.0-e73a4e1-linux-amd64"
 secret:
   secretName: gbot
   tokenKey: token
