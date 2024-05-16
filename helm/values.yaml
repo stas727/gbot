@@ -4,15 +4,11 @@
 
 replicaCount: 1
 image:
-  repository: stas727/gbot
+  repository: stas727
   pullPolicy: IfNotPresent
   arch: amd64
   os: "linux"
   registry: "ghcr.io"
   tag: "v1.0.0-86e1f60-linux-amd64"
-secret:
-  secretName: gbot
-  tokenKey: token
-  tokenName: TELE_TOKEN
 imagePullSecrets:
   - name: stas727
