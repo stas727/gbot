@@ -8,7 +8,7 @@ image:
   arch: amd64
   os: "linux"
   registry: "ghcr.io"
-  tag: "v1.0.0-4397f03-linux-amd64"
+  tag: "v1.0.0-b1e59d6-linux-amd64"
 secret:
   name: "gbot"
   env: "TELE_TOKEN"
