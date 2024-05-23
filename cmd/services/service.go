@@ -21,6 +21,7 @@ type IAIService interface {
 type IBotService interface {
 	NewBot(ctx context.Context, token string, timeout time.Duration, url string) (*model.Telegram, error)
 	Handle(ctx context.Context, handler func(message string) string, model *model.Telegram) error
+	Pmetrics(ctx context.Context, payload string)
 }
 
 func NewServices(storages *storages.Storages) *Services {
