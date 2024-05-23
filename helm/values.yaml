@@ -7,8 +7,8 @@ image:
   repository: stas727
   arch: amd64
   os: "linux"
-  registry: "docker.io"
-  tag: "v1.0.2-004fcb0-linux"
+  registry: "ghcr.io"
+  tag: "v1.0.0-7c4d19e-linux-amd64"
 secret:
   name: "gbot"
   env: "TELE_TOKEN"
